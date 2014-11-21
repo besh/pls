@@ -1,0 +1,57 @@
+body, section, header, h1, h2 {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: helvetica, arial, sans-serif;
+  background: #2d1f2a;
+}
+
+header {
+  padding: 20px;
+  border-bottom: 4px solid #A4A197;
+}
+
+h1 {
+  color: #97442D; /* red */
+}
+
+h2 {
+  color: #e0b261; /* yellow */
+}
+
+section {
+  margin: 40px 20px 20px;
+  color: white;
+}
+
+section:first-of-type {
+  margin-top: 20px;
+}
+
+a.btn {
+  background: #AF2915;
+  color: white;
+  display: block;
+  padding: 10px;
+  text-align: center;
+  text-decoration: none;
+  height: 48px;
+  line-height: 48px;
+  text-transform: uppercase;
+}
+
+.code-block {
+  background: cadetblue;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+code span {
+  display: inline-block;
+}
+
+code p {
+  margin-top: 0;
+}
