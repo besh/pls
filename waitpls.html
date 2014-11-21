@@ -87,16 +87,44 @@
       }, 2000);
     };
 
-    $('.add-to-cart').on('click', function(e) {
+    $('.add-to-cart').eq(0).on('click', function(e) {
       e.preventDefault();
       var parent = $(this).parent('.item');
       waitpls.on('Adding to cart...', parent);
 
-      // simulate request
+      //simulate request
       setTimeout(function() {
-        waitpls.off('Added!', 2000);
+        waitpls.off('Something went wrong :(', parent, 2000);
+      }, 5000);
+    });
+
+    $('.add-to-cart').eq(1).on('click', function(e) {
+      e.preventDefault();
+      var parent = $(this).parent('.item');
+      waitpls.on('Adding to cart...', parent);
+
+      //simulate request
+      setTimeout(function() {
+        waitpls.off('Added!', parent, 2000);
       }, 2000);
     });
+
+    $('.add-to-cart').eq(2).on('click', function(e) {
+      e.preventDefault();
+      var parent = $(this).parent('.item');
+      waitpls.on('Adding to cart...', parent);
+
+      //simulate request
+      setTimeout(function() {
+        waitpls.step('Almost done...', parent)
+        setTimeout(function() {
+          waitpls.off('Added!', parent, 2000);
+        }, 5000);
+      }, 5000);
+    });
+
+
+
   </script>
 
 </html>
