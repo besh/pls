@@ -1,35 +1,31 @@
 var waitpls = {
   var: cls      = '.waitpls',
   var: waited   = ' js-has-waited',
-  var: overlays = [],
 
   on: function(text, parent) {
-    var c = document.querySelector('.waitpls.main');
+    var element = document.querySelector('.waitpls.main');
 
     if (parent) {
-      for(var i = 0, len = parent.length; i < len; i ++) {
-        if (parent[i].className.indexOf(waited) < 0) {
-          var html = c.outerHTML;
-
-          parent[i].insertAdjacentHTML('beforeend', html);
-          c = parent[i].querySelector(cls);
-          c.className = c.className.replace(/\b main\b/,'');
-          parent[i].className = parent[i].className + waited;
-        }
-        c = parent[i].querySelector(cls)
-      }
+      findParent(parent, element, function(p) {
+        element = p;
+      });
     }
 
-    overlays.push(c);
-    c.querySelector('.container p').innerHTML = text ? text : 'Waitpls';
-    c.className = c.className + ' active';
+    element.querySelector('.container p').innerHTML = text ? text : 'Waitpls';
+    element.className = element.className + ' active';
   },
 
-  off: function(text, delay) {
-    var c = overlays.shift();
+  off: function(text, parent, delay) {
+    var element = document.querySelector('.waitpls.main');
+
+    if (parent) {
+      findParent(parent, null, function(p) {
+        element = p;
+      });
+    }
 
     if (text) {
-      c.querySelector('.container p').innerHTML = text;
+      element.querySelector('.container p').innerHTML = text;
     }
 
     if (delay) {
@@ -41,13 +37,40 @@ var waitpls = {
     }
 
     function _complete() {
-      console.log(c)
-      _remove(c)
-    }
-
-    function _remove(elm) {
-
-      elm.className = elm.className.replace(/\b active\b/,'');
+      element.className = element.className.replace(/\b active\b/,'');
     }
   },
+
+  step: function(text, parent) {
+    var element = document.querySelector('.waitpls.main');
+
+    if (parent) {
+      findParent(parent, null, function(p) {
+        element = p;
+      });
+    }
+
+    if (text) {
+      element.querySelector('.container p').innerHTML = text;
+    } else {
+      console.warn('pls only use this if you wish to update the text')
+    }
+  }
+}
+
+
+
+function findParent(parent, context, callback) {
+  for(var i = 0, len = parent.length; i < len; i ++) {
+    if (parent[i].className.indexOf(waited) < 0) {
+      var html = context.outerHTML;
+
+      parent[i].insertAdjacentHTML('beforeend', html);
+      context = parent[i].querySelector(cls);
+      context.className = context.className.replace(/\b main\b/,'');
+      parent[i].className = parent[i].className + waited;
+    }
+
+    return callback(parent[i].querySelector(cls));
+  }
 }
