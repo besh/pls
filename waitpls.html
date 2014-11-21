@@ -7,21 +7,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="css/waitpls.css">
   <link rel="stylesheet" href="css/main.css">
+  <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
   <script src="js/waitpls.js"></script>
 </head>
 
 <html>
   <body>
     <header>
-      <h1>Wait Pls</h1>
+      <h1>Waitpls</h1>
       <h2><em>A simple loading overlay</em></h2>
     </header>
 
     <section>
-      <p><strong>Wait Pls</strong> is a small and simple JavaScript library used to easily control loading overlays</p>
-    </section>
-
-    <section>
+      <p><strong>Waitpls</strong> is a small and simple JavaScript library used to easily control loading overlays</p>
       <a href="#" id="simulate" class="btn">Simulate Request!</a>
     </section>
 
@@ -37,23 +35,68 @@
       </div>
     </section>
 
-    <div class="waitpls">
+    <section>
+      <p><strong>Waitpls</strong> can also handle multiple request! Just pass in the parent container you want it to append to.</p>
+      <div class="code-block">
+        <code>
+          <span></span>
+          <p>waitpls.on(text, delay, parent)</p>
+        </code>
+      </div>
+    </section>
+
+    <ul>
+      <li class="item">
+        <div class="image">
+          <img src="http://placekitten.com/g/200/200" alt="cat 1">
+        </div>
+        <a href="#" class="btn add-to-cart">Add to cart</a>
+      </li>
+      <li class="item">
+        <div class="image">
+          <img src="http://placekitten.com/g/300/300" alt="cat 2">
+        </div>
+        <a href="#" class="btn add-to-cart">Add to cart</a>
+      </li>
+      <li class="item">
+        <div class="image">
+          <img src="http://placekitten.com/g/350/350" alt="cat 3">
+        </div>
+        <a href="#" class="btn add-to-cart">Add to cart</a>
+      </li>
+    </ul>
+
+    <div class="waitpls main">
       <div class="container">
         <div class="spinner"></div>
         <p>Wait pls</p>
       </div>
       <div class="background"></div>
     </div>
+
   </body>
 
   <script>
-    document.getElementById('simulate').onclick = function(){
-      waitpls.on('Wait pls!');
+    document.getElementById('simulate').onclick = function(event){
+      event.preventDefault();
+      waitpls.on('Wait pls...');
+
+      // simulate request
       setTimeout(function() {
         waitpls.off('All done!', 2000);
       }, 2000);
     };
 
+    $('.add-to-cart').on('click', function(e) {
+      e.preventDefault();
+      var parent = $(this).parent('.item');
+      waitpls.on('Adding to cart...', parent);
+
+      // simulate request
+      setTimeout(function() {
+        waitpls.off('Added!', 2000);
+      }, 2000);
+    });
   </script>
 
 </html>

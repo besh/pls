@@ -1,4 +1,4 @@
-body, section, header, h1, h2 {
+body, section, header, h1, h2, ul {
   margin: 0;
   padding: 0;
 }
@@ -21,6 +21,10 @@ h2 {
   color: #e0b261; /* yellow */
 }
 
+strong {
+  color: #e0b261;
+}
+
 section {
   margin: 40px 20px 20px;
   color: white;
@@ -30,8 +34,19 @@ section:first-of-type {
   margin-top: 20px;
 }
 
+ul {
+  margin: 10px;
+}
+
+ul li {
+  padding: 20px;
+  background: #2d1f2a;
+  border-top: 1px dashed #A4A197;
+  position: relative;
+}
+
 a.btn {
-  background: #AF2915;
+  background: #97442D;
   color: white;
   display: block;
   padding: 10px;
@@ -40,6 +55,24 @@ a.btn {
   height: 48px;
   line-height: 48px;
   text-transform: uppercase;
+}
+
+.image {
+  width: 120px;
+  display: inline-block;
+  border-radius: 60px;
+  overflow: hidden;
+}
+
+.image img {
+  width: 100%;
+}
+
+.image + .btn {
+  display: inline-block;
+  vertical-align: top;
+  float: right;
+  margin-top: 25px;
 }
 
 .code-block {
@@ -54,4 +87,20 @@ code span {
 
 code p {
   margin-top: 0;
+}
+
+/* Desktops and laptops ----------- */
+@media only screen and (min-width : 1224px) {
+  section, ul {
+    width: 1000px;
+    margin: 60px auto 0;
+  }
+
+  ul {
+    width: 800px;
+  }
+
+  a.btn {
+    width: 200px;
+  }
 }
