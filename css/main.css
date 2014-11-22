@@ -3,9 +3,14 @@ body, section, header, h1, h2, ul {
   padding: 0;
 }
 
+html {
+  font-size: 62.4%;
+}
+
 body {
   font-family: helvetica, arial, sans-serif;
   background: #2d1f2a;
+  font-size: 1.4rem;
 }
 
 header {
@@ -15,6 +20,7 @@ header {
 
 h1 {
   color: #97442D; /* red */
+  font-size: 4rem;
 }
 
 h2 {
@@ -43,6 +49,10 @@ ul li {
   background: #2d1f2a;
   border-top: 1px dashed #A4A197;
   position: relative;
+}
+
+#bodyContainer {
+  overflow: hidden;
 }
 
 a.btn {
@@ -75,19 +85,34 @@ a.btn {
   margin-top: 25px;
 }
 
-.code-block {
+pre {
   background: cadetblue;
   padding: 10px;
   border-radius: 5px;
+  counter-reset: line;
+  line-height: .5;
 }
 
-code span {
+pre span {
+  display: block;
+}
+
+.highlight {
+  background: darkslategray;
+  padding: 6px 0;
+  border-radius: 2px;
+}
+
+pre span:before {
+  counter-increment: line;
+  content: counter(line);
   display: inline-block;
+  border-right: 1px solid cornsilk;
+  padding: 0 5px;
+  margin-right: 10px;
+  color: cornsilk;
 }
 
-code p {
-  margin-top: 0;
-}
 
 /* Desktops and laptops ----------- */
 @media only screen and (min-width : 1224px) {
