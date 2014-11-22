@@ -95,7 +95,8 @@
     document.getElementById('simulate').onclick = function(event){
       event.preventDefault();
       pls('#bodyContainer').wait({
-        text: 'Pls wait'
+        text: 'Pls wait',
+        main: true
       });
 
       // simulate request

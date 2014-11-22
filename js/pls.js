@@ -33,6 +33,10 @@ window.pls = (function () {
         self.pls.success = opts.success || 'Success';
         self.pls.error   = opts.error || 'Something went wrong';
 
+        if (!self.querySelector('.main')) {
+          self.pls.main = opts.main || null;
+        }
+
         if (!self.querySelector('.waitpls')) {
           var node = document.getElementById('pls-overlay').cloneNode(true);
 
@@ -41,7 +45,8 @@ window.pls = (function () {
         }
 
         var wait_elm = self.querySelector('.waitpls')
-        wait_elm.className = wait_elm.className + ' active';
+        var cls = self.pls.main ? ' active main' : ' active';
+        wait_elm.className = wait_elm.className + cls;
       }
     }
   };
@@ -51,7 +56,6 @@ window.pls = (function () {
       var self = this[i];
 
       if (self.pls.delay) {
-
         if (state === 'error' || state === 'err' || state === 'e') {
           self.querySelector('.waitpls p').innerHTML = self.pls.error
         } else {
@@ -67,6 +71,7 @@ window.pls = (function () {
     }
 
     function _complete(e) {
+
       e.className = e.className.replace(/\b active\b/,'');
     }
   }
