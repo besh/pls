@@ -25,18 +25,22 @@ window.pls = (function () {
     if (typeof opts !== "undefined") {
 
       for (var i = 0, len = this.length; i < len; i ++) {
-        this[i].pls = {};
-        this[i].pls.text    = opts.text || 'Please Wait...';
-        this[i].pls.delay   = opts.delay || null;
-        this[i].pls.success = opts.success || 'Success';
-        this[i].pls.error   = opts.error || 'Something went wrong';
-        console.log(this[i])
+        var self = this[i];
+        console.log(self)
+        self.pls = {};
+        self.pls.text    = opts.text || 'Please Wait...';
+        self.pls.delay   = opts.delay || null;
+        self.pls.success = opts.success || 'Success';
+        self.pls.error   = opts.error || 'Something went wrong';
 
-        var node = document.getElementById('pls-overlay').cloneNode(true);
-        node.removeAttribute('id');
-        this[i].appendChild(node);
+        if (!self.querySelector('.waitpls')) {
+          var node = document.getElementById('pls-overlay').cloneNode(true);
 
-        var wait_elm = this[i].querySelector('.waitpls')
+          node.removeAttribute('id');
+          self.appendChild(node);
+        }
+
+        var wait_elm = self.querySelector('.waitpls')
         wait_elm.className = wait_elm.className + ' active';
       }
     }
@@ -58,7 +62,6 @@ window.pls = (function () {
           _complete(self.querySelector('.waitpls'));
         }, self.pls.delay);
       } else {
-        console.log(self)
         _complete(self.querySelector('.waitpls'))
       }
     }
@@ -79,20 +82,6 @@ window.pls = (function () {
     }
     return new Pls(els);
   };
-
-  // var pls = {
-  //   get: function (selector) {
-  //     var els;
-  //     if (typeof selector === "string") {
-  //       els = document.querySelectorAll(selector);
-  //     } else if (selector.length) {
-  //       els = selector;
-  //     } else {
-  //       els = [selector];
-  //     }
-  //     return new Pls(els);
-  //   }
-  // };
 
   return pls;
 }());
