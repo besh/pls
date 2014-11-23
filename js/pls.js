@@ -69,6 +69,7 @@ window.pls = (function () {
 
           // remove the id from the overlay so we don't end up with multiple of the same id
           overlay.removeAttribute('id');
+          overlay.querySelector('.pls-text').innerHTML = self.pls.text;
 
           // append the overlay to the parent container
           self.appendChild(overlay);
