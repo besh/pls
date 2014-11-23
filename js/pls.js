@@ -13,6 +13,10 @@
  * http://opensource.org/licenses/MIT OR http://www.gnu.org/licenses/gpl-2.0.html
  */
 
+// TODO: Cache class and id names (e.g waitlps, active, pls-overlay)
+// TODO: Add support for general messaging || pls(selector).speak('yay', 'success') or pls(selector).success('yay')
+// TODO: Possibly add support for logging data to the screen (helpful for mobile debugging)
+
 window.pls = (function () {
   function Pls (els) {
     for(var i = 0; i < els.length; i++ ) {
@@ -58,6 +62,7 @@ window.pls = (function () {
           // append the overlay to the parent container
           self.appendChild(overlay);
 
+          // TODO: find a better way to handle assigning wait_elm. Not a fan of the double loop
           // now re-run the findChild function
           wait_elm = findChild(self.children)
         }
