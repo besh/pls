@@ -101,6 +101,7 @@ pre {
   border-radius: 5px;
   counter-reset: line;
   line-height: .5;
+  overflow-y: scroll;
 }
 
 pre span {

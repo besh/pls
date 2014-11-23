@@ -1,7 +1,7 @@
 /*!
  * Pls - A js library for handling ajax overlays and response messages
  *
- * Version:  0.3.2
+ * Version:  0.3.3
  * Released:
  * Home:   https://github.com/hankthewhale/pls
  * Author:   Dave Beshero (http://daveb.me)
@@ -46,9 +46,8 @@ window.pls = (function () {
 
   Pls.prototype.wait = function (opts) {
     if (typeof opts !== "undefined") {
-
-      for (var i = 0, len = this.length; i < len; i ++) {
-        var self = this[i];
+      this.forEach(function(self) {
+        var wait_elm = findChild(self.children)
 
         // set options
         self.pls = {};
@@ -60,8 +59,6 @@ window.pls = (function () {
         if (!self.querySelector('.main')) {
           self.pls.main = opts.main || null;
         }
-
-        var wait_elm = findChild(self.children)
 
         if (wait_elm === undefined) {
           // if the overlay hasn't been applied yet clone overlay template
@@ -81,7 +78,8 @@ window.pls = (function () {
 
         var cls = self.pls.main ? ' main active' : ' active';
         wait_elm.className = wait_elm.className + cls;
-      }
+
+      });
     }
   };
 
@@ -135,17 +133,21 @@ window.pls = (function () {
 
   Pls.prototype.clearMessages = function(type) {
     this.forEach(function(element) {
-      var child = element.getElementsByClassName('pls-message');
+      var children = [];
 
       if (type) {
+        // if the type option is specified, reset the children array
         var cls = type === 'success' ? 'success' : 'error';
-        child = element.getElementsByClassName(cls);
+        children = element.getElementsByClassName(cls);
+      } else {
+        // if no type, stuff all pls-messages into the array
+        element.getElementsByClassName('pls-message');
       }
 
-      if (child.length) {
-        // reverse loop so we don't have to worry about removing the items from child
-        for (var i = child.length; i--;) {
-          element.removeChild(child[i]);
+      if (children.length) {
+        // reverse loop so we don't have to worry about removing the items from children
+        for (var i = children.length; i--;) {
+          element.removeChild(children[i]);
         }
       }
     });

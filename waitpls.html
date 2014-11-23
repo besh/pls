@@ -94,13 +94,17 @@
       </section>
 
       <section>
-      <h2>clearMessages()</h2>
+        <h2>clearMessages()</h2>
         <p>If no delay is passed in, you can remove all messages with <code>pls(selector).clearMessages()</code></p>
         <pre>
           <span>pls(selector).clearMessages();</span>
         </pre>
+        <p>You can also specify to only remove success or error messages</p>
+        <pre>
+          <span>pls(selector).clearMessages('success');</span>
+          <span>pls(selector).clearMessages('error');</span>
+        </pre>
       </section>
-
     </div>
 
     <div class="waitpls" id="pls-overlay">
