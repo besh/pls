@@ -1,4 +1,4 @@
-.waitpls {
+.pls-wait {
   position: absolute;
   width: 100%;
   height: 100%;
@@ -12,11 +12,11 @@
   transform: scale(3);
 }
 
-.waitpls.main {
+.pls-wait.main {
   position: fixed;
 }
 
-.waitpls .background {
+.pls-wait .background {
   position: absolute;
   width: 100%;
   height: 100%;
@@ -27,7 +27,7 @@
   opacity: .8;
 }
 
-.waitpls .container {
+.pls-wait .container {
   position: absolute;
   width: 200px;
   height: 200px;
@@ -39,7 +39,7 @@
   color: #e0b261;
 }
 
-.waitpls.active {
+.pls-wait.active {
   opacity: 1;
   transform: scale(1);
   pointer-events: all;
@@ -62,7 +62,7 @@
   border: 1px solid #97442d;
 }
 
-.waitpls .spinner {
+.pls-wait .spinner {
   width: 80px;
   height: 80px;
   background: #e0b261;

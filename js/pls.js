@@ -1,7 +1,7 @@
 /*!
  * Pls - A js library for handling ajax overlays and response messages
  *
- * Version:  0.3.3
+ * Version:  0.3.4
  * Released:
  * Home:   https://github.com/hankthewhale/pls
  * Author:   Dave Beshero (http://daveb.me)
@@ -36,6 +36,18 @@ window.pls = (function () {
     return new Pls(els);
   };
 
+  var settings = {
+    // class and id names
+    n_overlay: 'pls-overlay',
+    n_wait:    'pls-wait',
+    n_message: 'pls-message',
+    n_success: 'success',
+    n_error:   'error'
+  };
+
+  // easier to type
+  var s = settings;
+
   Pls.prototype.forEach = function (callback) {
     var results = [];
     for (var i = 0; i < this.length; i++) {
@@ -45,57 +57,56 @@ window.pls = (function () {
   };
 
   Pls.prototype.wait = function (opts) {
-    if (typeof opts !== "undefined") {
+    if (typeof opts !== 'undefined') {
       this.forEach(function(self) {
-        var wait_elm = findChild(self.children)
 
         // set options
         self.pls = {};
         self.pls.text    = opts.text || 'Please Wait...';
-        self.pls.delay   = opts.delay || null;
         self.pls.success = opts.success || 'Success';
         self.pls.error   = opts.error || 'Something went wrong';
+        self.pls.delay   = opts.delay || null;
 
-        if (!self.querySelector('.main')) {
-          self.pls.main = opts.main || null;
+        if (opts.main) {
+          if (!self.querySelector('.main')) {
+            self.pls.main = opts.main;
+          }
         }
+
+        var obj      = self.pls;
+        var wait_elm = findChild(self.children)
 
         if (wait_elm === undefined) {
           // if the overlay hasn't been applied yet clone overlay template
-          var overlay = document.getElementById('pls-overlay').cloneNode(true);
+          var overlay = document.getElementById(s.n_overlay).cloneNode(true);
 
           // remove the id from the overlay so we don't end up with multiple of the same id
           overlay.removeAttribute('id');
-          overlay.querySelector('.pls-text').innerHTML = self.pls.text;
+          overlay.querySelector('.pls-text').innerHTML = obj.text;
 
           // append the overlay to the parent container
           self.appendChild(overlay);
 
-          // TODO: find a better way to handle assigning wait_elm. Not a fan of the double loop
           // now re-run the findChild function
           wait_elm = findChild(self.children)
         }
 
-        var cls = self.pls.main ? ' main active' : ' active';
+        var cls = obj.main ? ' main active' : ' active';
         wait_elm.className = wait_elm.className + cls;
-
       });
     }
   };
 
   Pls.prototype.send = function (state) {
     for (var i = 0, len = this.length; i < len; i ++) {
-      var self = this[i];
+      var self     = this[i];
       var wait_elm = findChild(self.children)
+      var obj      = self.pls;
 
-      if (self.pls.delay) {
-        if (state === 'error' || state === 'err' || state === 'e') {
-          self.querySelector('.waitpls p').innerHTML = self.pls.error
-        } else {
-          self.querySelector('.waitpls p').innerHTML = this[i].pls.success
-        }
+      if (obj.delay) {
+        self.querySelector('.' + s.n_wait + ' ' + 'p').innerHTML = state === s.n_error ? obj.error : obj.success
 
-        delay(self.pls.delay, function() {
+        delay(obj.delay, function() {
           _complete(wait_elm)
         });
       } else {
@@ -109,12 +120,11 @@ window.pls = (function () {
   }
 
   Pls.prototype.message = function (opts) {
-    if (typeof opts !== "undefined") {
+    if (typeof opts !== 'undefined') {
       this.forEach(function(element) {
-        var node = document.createElement('p');
+        var node     = document.createElement('p');
         var textnode = document.createTextNode(opts.text);
-
-        var cls = opts.type !== 'error' ? 'pls-message success' : 'pls-message error';
+        var cls      = opts.type !== s.n_error ? s.n_message + ' ' + s.n_success : s.n_message + ' ' + s.n_error ;
 
         node.className = cls;
         node.appendChild(textnode);
@@ -137,11 +147,11 @@ window.pls = (function () {
 
       if (type) {
         // if the type option is specified, reset the children array
-        var cls = type === 'success' ? 'success' : 'error';
+        var cls = type === s.n_success ? s.n_success : s.n_error;
         children = element.getElementsByClassName(cls);
       } else {
         // if no type, stuff all pls-messages into the array
-        element.getElementsByClassName('pls-message');
+        children = element.getElementsByClassName(s.n_message);
       }
 
       if (children.length) {
@@ -156,7 +166,7 @@ window.pls = (function () {
   // utility functions
   function findChild(chd) {
     for (n = 0, l = chd.length; n < l; n ++) {
-      if (chd[n].className.match(/\bwaitpls\b/)) {
+      if (chd[n].className.match(s.n_wait)) {
         return chd[n]
       }
     }
