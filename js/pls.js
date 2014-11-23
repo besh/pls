@@ -24,7 +24,6 @@ window.pls = (function () {
   Pls.prototype.forEach = function (callback) {
     var results = [];
     for (var i = 0; i < this.length; i++) {
-      console.log(this[i])
       results.push(callback.call(this, this[i], i));
     }
     return results;
@@ -43,19 +42,6 @@ window.pls = (function () {
         self.pls.success = opts.success || 'Success';
         self.pls.error   = opts.error || 'Something went wrong';
 
-        // // if the overlay hasn't been applied yet
-        // if (!self.querySelector('.waitpls')) {
-        //   // clone overlay template
-        //   var overlay = document.getElementById('pls-overlay').cloneNode(true);
-
-        //   // remove the id from the overlay so we don't end up with multiple of the same id
-        //   overlay.removeAttribute('id');
-
-        //   // append the overlay to the parent container
-        //   self.appendChild(overlay);
-        // }
-
-        // if the main class doesn't exist on the overlay, set it as main if the main option was passed
         if (!self.querySelector('.main')) {
           self.pls.main = opts.main || null;
         }
@@ -103,7 +89,6 @@ window.pls = (function () {
     }
 
     function _complete(e) {
-      console.log(e)
       e.className = e.className.replace(/\b active\b/,'');
     }
   }
