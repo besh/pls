@@ -36,6 +36,12 @@ section {
   color: white;
 }
 
+section h2 {
+  background: rgba(0, 0, 0, .4);
+  padding: 5px 10px;
+  color: #a4a197;
+}
+
 section:first-of-type {
   margin-top: 20px;
 }
@@ -128,12 +134,12 @@ pre span:before {
 /* Desktops and laptops ----------- */
 @media only screen and (min-width : 1224px) {
   section, ul {
-    width: 1000px;
+    width: 900px;
     margin: 60px auto 0;
   }
 
   ul {
-    width: 800px;
+    width: 700px;
   }
 
   a.btn {

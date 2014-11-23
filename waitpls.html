@@ -17,10 +17,11 @@
     <div id="bodyContainer">
       <header>
         <h1>Pls.js</h1>
-        <h2><em>A simple JavaScript library for handling ajax overlays and messages.</em></h2>
+        <h2><em>A simple JavaScript library for handling ajax overlays and displaying response messages.</em></h2>
       </header>
 
       <section>
+        <h2>wait()</h2>
         <p><strong>Pls</strong> helps you easily control common tasks for ajax overlays by passing in various options</p>
         <pre>
           <span class="highlight">// append overlay to selector</span>
@@ -80,6 +81,7 @@
       </ul>
 
       <section>
+      <h2>message()</h2>
         <p><strong>Pls</strong> also comes with a general success/error messaging system.</p>
         <pre>
           <span>pls(selector).message({</span>
@@ -92,6 +94,7 @@
       </section>
 
       <section>
+      <h2>clearMessages()</h2>
         <p>If no delay is passed in, you can remove all messages with <code>pls(selector).clearMessages()</code></p>
         <pre>
           <span>pls(selector).clearMessages();</span>
