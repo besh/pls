@@ -1,7 +1,7 @@
 /*!
  * Pls - A js library for handling ajax overlays and response messages
  *
- * Version:  0.3.0
+ * Version:  0.3.2
  * Released:
  * Home:   https://github.com/hankthewhale/pls
  * Author:   Dave Beshero (http://daveb.me)
@@ -133,11 +133,20 @@ window.pls = (function () {
     }
   }
 
-  Pls.prototype.clearMessages = function() {
+  Pls.prototype.clearMessages = function(type) {
     this.forEach(function(element) {
-      var child = element.querySelector('.pls-message');
-      if (child) {
-        element.removeChild(child);
+      var child = element.getElementsByClassName('pls-message');
+
+      if (type) {
+        var cls = type === 'success' ? 'success' : 'error';
+        child = element.getElementsByClassName(cls);
+      }
+
+      if (child.length) {
+        // reverse loop so we don't have to worry about removing the items from child
+        for (var i = child.length; i--;) {
+          element.removeChild(child[i]);
+        }
       }
     });
   }
