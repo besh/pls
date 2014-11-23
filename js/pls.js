@@ -1,7 +1,7 @@
 /*!
  * Pls - A js library for handling ajax overlays and response messages
  *
- * Version:  0.1
+ * Version:  0.2.1
  * Released:
  * Home:   https://github.com/hankthewhale/pls
  * Author:   Dave Beshero (http://daveb.me)
@@ -21,31 +21,62 @@ window.pls = (function () {
     this.length = els.length;
   }
 
+  Pls.prototype.forEach = function (callback) {
+    var results = [];
+    for (var i = 0; i < this.length; i++) {
+      console.log(this[i])
+      results.push(callback.call(this, this[i], i));
+    }
+    return results;
+  };
+
   Pls.prototype.wait = function (opts) {
     if (typeof opts !== "undefined") {
 
       for (var i = 0, len = this.length; i < len; i ++) {
         var self = this[i];
-        console.log(self)
+
+        // set options
         self.pls = {};
         self.pls.text    = opts.text || 'Please Wait...';
         self.pls.delay   = opts.delay || null;
         self.pls.success = opts.success || 'Success';
         self.pls.error   = opts.error || 'Something went wrong';
 
+        // // if the overlay hasn't been applied yet
+        // if (!self.querySelector('.waitpls')) {
+        //   // clone overlay template
+        //   var overlay = document.getElementById('pls-overlay').cloneNode(true);
+
+        //   // remove the id from the overlay so we don't end up with multiple of the same id
+        //   overlay.removeAttribute('id');
+
+        //   // append the overlay to the parent container
+        //   self.appendChild(overlay);
+        // }
+
+        // if the main class doesn't exist on the overlay, set it as main if the main option was passed
         if (!self.querySelector('.main')) {
           self.pls.main = opts.main || null;
         }
 
-        if (!self.querySelector('.waitpls')) {
-          var node = document.getElementById('pls-overlay').cloneNode(true);
+        var wait_elm = findChild(self.children)
 
-          node.removeAttribute('id');
-          self.appendChild(node);
+        if (wait_elm === undefined) {
+          // if the overlay hasn't been applied yet clone overlay template
+          var overlay = document.getElementById('pls-overlay').cloneNode(true);
+
+          // remove the id from the overlay so we don't end up with multiple of the same id
+          overlay.removeAttribute('id');
+
+          // append the overlay to the parent container
+          self.appendChild(overlay);
+
+          // now re-run the findChild function
+          wait_elm = findChild(self.children)
         }
 
-        var wait_elm = self.querySelector('.waitpls')
-        var cls = self.pls.main ? ' active main' : ' active';
+        var cls = self.pls.main ? ' main active' : ' active';
         wait_elm.className = wait_elm.className + cls;
       }
     }
@@ -54,6 +85,7 @@ window.pls = (function () {
   Pls.prototype.send = function (state) {
     for (var i = 0, len = this.length; i < len; i ++) {
       var self = this[i];
+      var wait_elm = findChild(self.children)
 
       if (self.pls.delay) {
         if (state === 'error' || state === 'err' || state === 'e') {
@@ -63,22 +95,22 @@ window.pls = (function () {
         }
 
         setTimeout(function() {
-          _complete(self.querySelector('.waitpls'));
+          _complete(wait_elm);
         }, self.pls.delay);
       } else {
-        _complete(self.querySelector('.waitpls'))
+        _complete(wait_elm)
       }
     }
 
     function _complete(e) {
-
+      console.log(e)
       e.className = e.className.replace(/\b active\b/,'');
     }
   }
 
   var pls = function (selector) {
     var els;
-    if (typeof selector === "string") {
+    if (typeof selector === 'string') {
       els = document.querySelectorAll(selector);
     } else if (selector.length) {
       els = selector;
@@ -87,6 +119,14 @@ window.pls = (function () {
     }
     return new Pls(els);
   };
+
+  function findChild(chd) {
+    for (n = 0, l = chd.length; n < l; n ++) {
+      if (chd[n].className.match(/\bwaitpls\b/)) {
+        return chd[n]
+      }
+    }
+  }
 
   return pls;
 }());
