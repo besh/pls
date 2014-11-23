@@ -9,7 +9,6 @@
   <link rel="stylesheet" href="css/main.css">
   <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
   <script src="js/jquery.mockjax.js"></script>
-  <script src="js/waitpls.js"></script>
   <script src="js/pls.js"></script>
 </head>
 
@@ -80,12 +79,31 @@
         </li>
       </ul>
 
+      <section>
+        <p><strong>Pls</strong> also comes with a general success/error messaging system.</p>
+        <pre>
+          <span>pls(selector).message({</span>
+          <span>  text: 'Everything is bad!',</span>
+          <span>  type: 'error', // default is success</span>
+          <span>  delay: 4000,</span>
+          <span>});</span>
+        </pre>
+        <p class="pls-message error">Everything is bad!</p>
+      </section>
+
+      <section>
+        <p>If no delay is passed in, you can remove all messages with <code>pls(selector).clearMessages()</code></p>
+        <pre>
+          <span>pls(selector).clearMessages();</span>
+        </pre>
+      </section>
+
     </div>
 
     <div class="waitpls" id="pls-overlay">
       <div class="container">
         <div class="spinner"></div>
-        <p>Wait pls</p>
+        <p class="pls-text"></p>
       </div>
       <div class="background"></div>
     </div>
@@ -130,8 +148,6 @@
       });
     });
 
-
-
     $.mockjax({
       url: "/restful/fortune",
       responseText: {
@@ -139,10 +155,5 @@
         fortune: "Are you a mock turtle?"
       }
     });
-
-
-
-
   </script>
-
 </html>

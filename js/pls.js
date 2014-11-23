@@ -1,7 +1,7 @@
 /*!
  * Pls - A js library for handling ajax overlays and response messages
  *
- * Version:  0.2.1
+ * Version:  0.3.0
  * Released:
  * Home:   https://github.com/hankthewhale/pls
  * Author:   Dave Beshero (http://daveb.me)
@@ -14,7 +14,6 @@
  */
 
 // TODO: Cache class and id names (e.g waitlps, active, pls-overlay)
-// TODO: Add support for general messaging || pls(selector).speak('yay', 'success') or pls(selector).success('yay')
 // TODO: Possibly add support for logging data to the screen (helpful for mobile debugging)
 
 window.pls = (function () {
@@ -23,7 +22,19 @@ window.pls = (function () {
       this[i] = els[i];
     }
     this.length = els.length;
-  }
+  };
+
+  var pls = function (selector) {
+    var els;
+    if (typeof selector === 'string') {
+      els = document.querySelectorAll(selector);
+    } else if (selector.length) {
+      els = selector;
+    } else {
+      els = [selector];
+    }
+    return new Pls(els);
+  };
 
   Pls.prototype.forEach = function (callback) {
     var results = [];
@@ -85,9 +96,9 @@ window.pls = (function () {
           self.querySelector('.waitpls p').innerHTML = this[i].pls.success
         }
 
-        setTimeout(function() {
-          _complete(wait_elm);
-        }, self.pls.delay);
+        delay(self.pls.delay, function() {
+          _complete(wait_elm)
+        });
       } else {
         _complete(wait_elm)
       }
@@ -98,24 +109,51 @@ window.pls = (function () {
     }
   }
 
-  var pls = function (selector) {
-    var els;
-    if (typeof selector === 'string') {
-      els = document.querySelectorAll(selector);
-    } else if (selector.length) {
-      els = selector;
-    } else {
-      els = [selector];
-    }
-    return new Pls(els);
-  };
+  Pls.prototype.message = function (opts) {
+    if (typeof opts !== "undefined") {
+      this.forEach(function(element) {
+        var node = document.createElement('p');
+        var textnode = document.createTextNode(opts.text);
 
+        var cls = opts.type !== 'error' ? 'pls-message success' : 'pls-message error';
+
+        node.className = cls;
+        node.appendChild(textnode);
+        element.appendChild(node);
+
+        if (opts.delay) {
+          delay(opts.delay, function() {
+            element.removeChild(node)
+          });
+        }
+      });
+    } else {
+      console.error('Pls pass in some options.')
+    }
+  }
+
+  Pls.prototype.clearMessages = function() {
+    this.forEach(function(element) {
+      var child = element.querySelector('.pls-message');
+      if (child) {
+        element.removeChild(child);
+      }
+    });
+  }
+
+  // utility functions
   function findChild(chd) {
     for (n = 0, l = chd.length; n < l; n ++) {
       if (chd[n].className.match(/\bwaitpls\b/)) {
         return chd[n]
       }
     }
+  }
+
+  function delay(time, callback) {
+    setTimeout(function() {
+      callback();
+    }, time);
   }
 
   return pls;

@@ -40,6 +40,10 @@ section:first-of-type {
   margin-top: 20px;
 }
 
+p {
+  line-height: 1.5;
+}
+
 ul {
   margin: 10px;
 }
@@ -101,6 +105,13 @@ pre span {
   background: darkslategray;
   padding: 6px 0;
   border-radius: 2px;
+}
+
+code {
+  background: darkslategray;
+  border: 1px solid cadetblue;
+  padding: 2px 5px;
+  border-radius: 3px;
 }
 
 pre span:before {

@@ -45,6 +45,23 @@
   pointer-events: all;
 }
 
+.pls-message {
+  padding: 8px;
+  border-radius: 3px;
+}
+
+.pls-message.success {
+  background: rgba(0, 255, 0, .1);
+  color: darkseagreen;
+  border: 1px solid darkseagreen;
+}
+
+.pls-message.error {
+  background: rgba(255, 0, 0, .1);
+  color: #97442D;
+  border: 1px solid #97442d;
+}
+
 .waitpls .spinner {
   width: 80px;
   height: 80px;
