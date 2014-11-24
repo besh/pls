@@ -1,7 +1,7 @@
 /*!
  * Pls - A js library for handling ajax overlays and response messages
  *
- * Version:  0.3.5.1
+ * Version:  0.3.5.2
  * Released:
  * Home:   https://github.com/hankthewhale/pls
  * Author:   Dave Beshero (http://daveb.me)
@@ -82,7 +82,6 @@ window.pls = (function () {
           // remove the id from the overlay so we don't end up with multiple of the same id
           overlay.removeAttribute('id');
           overlay.style.display = 'block';
-          overlay.querySelector('.pls-text').innerHTML = obj.text;
 
           // append the overlay to the parent container
           self.appendChild(overlay);
@@ -91,6 +90,7 @@ window.pls = (function () {
           wait_elm = findChild(self.children)
         }
 
+        wait_elm.querySelector('.pls-text').innerHTML = obj.text;
         var cls = obj.main ? ' main active' : ' active';
 
         // give a little delay so the active class triggers the aninmation the first time
