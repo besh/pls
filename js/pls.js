@@ -1,7 +1,7 @@
 /*!
  * Pls - A js library for handling ajax overlays and response messages
  *
- * Version:  0.3.5.2
+ * Version:  0.3.5.3
  * Released:
  * Home:   https://github.com/hankthewhale/pls
  * Author:   Dave Beshero (http://daveb.me)
@@ -108,9 +108,15 @@ window.pls = (function () {
       var obj      = self.pls;
 
       if (obj.delay) {
-        self.querySelector('.' + s.n_wait + ' ' + 'p').innerHTML = state === s.n_error ? obj.error : obj.success
+        self.querySelector('.' + s.n_wait + ' ' + 'p').innerHTML = state === s.n_error ? obj.error : obj.success;
+
+
+        var spinner  = self.querySelector('.spinner');
+        var spin_cls = ' ' + state;
+        spinner.className = spinner.className + spin_cls;
 
         delay(obj.delay, function() {
+          spinner.className = spinner.className.replace(spin_cls,'');
           _complete(wait_elm)
         });
       } else {

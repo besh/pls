@@ -2,6 +2,7 @@
 /*--Pls styles----------------------------------------------
 /*--You may change styles but do not change class names!----
 ----------------------------------------------------------*/
+
 /*-- Overlay styles--*/
 .pls-wait {
   position: absolute;
@@ -51,7 +52,7 @@
   pointer-events: all;
 }
 
-.pls-wait .spinner {
+.pls-wait.active .spinner {
   width: 80px;
   height: 80px;
   background: #e0b261;
@@ -60,6 +61,42 @@
   position: relative;
   left: 50%;
   margin-left: -40px;
+  -webkit-transition: all .5s;
+  transition: all .5s;
+}
+
+.pls-wait .spinner.success {
+  -webkit-animation: none;
+  transform: rotate(90deg);
+  border-radius: 40px;
+  background: darkseagreen;
+}
+
+.pls-wait .spinner.success:after {
+  content: ':)';
+  position: absolute;
+  color: white;
+  font-size: 5rem;
+  padding: 7px 0;
+  margin: 0 -9px;
+  letter-spacing: .5rem;
+}
+
+.pls-wait .spinner.error {
+  -webkit-animation: none;
+  transform: rotate(90deg);
+  border-radius: 40px;
+  background: brown;
+}
+
+.pls-wait .spinner.error:after {
+  content: ':(';
+  position: absolute;
+  color: white;
+  font-size: 5rem;
+  padding: 7px 0;
+  margin: 0 -9px;
+  letter-spacing: .5rem;
 }
 
 @-webkit-keyframes spin {
@@ -73,6 +110,26 @@
   }
   to {
     -webkit-transform: rotate(720deg) scale(.2);
+  }
+}
+
+@-webkit-keyframes spin-success {
+  from {
+    -webkit-transform: rotate(0deg);
+    background: cadetblue;
+    border-radius: 20px;
+    opacity: 1;
+  }
+
+  50% {
+    opacity: .7;
+  }
+
+  to {
+    -webkit-transform: rotate(360deg);
+    background: cadetblue;
+    border-radius: 10px;
+    opacity: 1;
   }
 }
 
