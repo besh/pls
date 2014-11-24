@@ -6,7 +6,7 @@ A simple JavaScript Library for launching request overlays
 > Pls helps you easily control common tasks for ajax overlays and general succes/error messaging.
 
 ## Getting Started
-1. Include [pls.js](https://github.com/hankthewhale/pls/blob/master/js/pls.js) and [waitpls.css](https://github.com/hankthewhale/pls/blob/master/js/waitpls.css) in your html. 
+1. Include [pls.js](https://github.com/hankthewhale/pls/blob/master/js/pls.js) and [waitpls.css](https://github.com/hankthewhale/pls/blob/master/css/waitpls.css) in your html. 
    ```html
    <link rel="stylesheet" href="css/waitpls.css">
    <script src="js/pls.js"></script>
