@@ -5,7 +5,7 @@
   <title>Pls Demo</title>
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="css/waitpls.css">
+  <link rel="stylesheet" href="css/pls.css">
   <link rel="stylesheet" href="css/main.css">
   <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
   <script src="js/jquery.mockjax.js"></script>
@@ -107,6 +107,7 @@
       </section>
     </div>
 
+    <!-- START pls overlay template-->
     <div class="pls-wait" id="pls-overlay">
       <div class="container">
         <div class="spinner"></div>
@@ -114,11 +115,12 @@
       </div>
       <div class="background"></div>
     </div>
+    <!-- END pls overlay template-->
   </body>
 
   <script>
-    document.getElementById('simulate').onclick = function(event){
-      event.preventDefault();
+    $('#simulate').on('click', function(e) {
+      e.preventDefault();
       pls('#bodyContainer').wait({
         text: 'Pls wait',
         main: true
@@ -128,7 +130,7 @@
       setTimeout(function() {
         pls('#bodyContainer').send('success')
       }, 2000);
-    };
+    });
 
 
     $('.add-to-cart').on('click', function(e) {
@@ -143,16 +145,18 @@
         error: 'boo it no work'
       });
 
-      $.ajax({
-        url: '/restful/fortune'
-      })
-      .done(function(data) {
-        if (data.status === 'success') {
-          pls_elm.send('success');
-        } else {
-          pls_elm.send('error');
-        }
-      });
+      setTimeout(function() {
+        $.ajax({
+          url: '/restful/fortune'
+        })
+        .done(function(data) {
+          if (data.status === 'success') {
+            pls_elm.send('success');
+          } else {
+            pls_elm.send('error');
+          }
+        });
+      }, 2000);
     });
 
     $.mockjax({

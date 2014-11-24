@@ -1,7 +1,7 @@
 /*!
  * Pls - A js library for handling ajax overlays and response messages
  *
- * Version:  0.3.5
+ * Version:  0.3.5.1
  * Released:
  * Home:   https://github.com/hankthewhale/pls
  * Author:   Dave Beshero (http://daveb.me)
@@ -13,7 +13,6 @@
  * http://opensource.org/licenses/MIT OR http://www.gnu.org/licenses/gpl-2.0.html
  */
 
-// TODO: Cache class and id names (e.g waitlps, active, pls-overlay)
 // TODO: Possibly add support for logging data to the screen (helpful for mobile debugging)
 
 window.pls = (function () {
@@ -170,9 +169,9 @@ window.pls = (function () {
 
   // utility functions
   function findChild(chd) {
-    for (n = 0, l = chd.length; n < l; n ++) {
-      if (chd[n].className.match(s.n_wait)) {
-        return chd[n]
+    for (i = 0, l = chd.length; i < l; i ++) {
+      if (chd[i].className.match(s.n_wait)) {
+        return chd[i]
       }
     }
   }
