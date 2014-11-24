@@ -22,16 +22,48 @@ A simple JavaScript Library for launching request overlays
       <div class="background"></div>
     </div>
    ```
+
+## Usage  
+### Pls overlay
+Append new overlays via the ```wait()``` method.
+```js
+pls('#bodyContainer').wait({
+   text: 'Pls wait',
+   main: true
+});
+```
+
+### Pls success/error messages
   
-3.  Append the overlay template when making an ajax call
-   ```js
-   pls('#bodyContainer').wait({
-     text: 'Pls wait',
-     main: true
-   });
-   ```
-  
-4. Hide the overlay when the ajax completes
-    ```js
-   pls('#bodyContainer').send('success');
-   ```
+Pls also comes with a general messaging system to append messages at time using ```.message()```.
+```js
+pls('#bodyContainer').message({
+   text: 'I am a success message',
+   type: 'success'
+});
+
+pls('#bodyContainer').message({
+   text: 'I am a error message',
+   type: 'error'
+});
+```
+
+You can also pass in a delay which determines how long the message will display
+```js
+pls('#bodyContainer').message({
+   text: 'I am a success message',
+   type: 'success',
+   delay: 4000
+});
+```
+
+To remove all messages, use ```clearMessages()```.
+```js
+pls(#bodyContainer).clearMessages();
+```
+
+You can remove only success or error messages by passing in ```'success'``` or ```'error'``` respectively.
+```js
+pls(#bodyContainer).clearMessages('success');
+```
+
