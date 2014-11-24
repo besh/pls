@@ -135,8 +135,18 @@
 
 /*--General success and error styles--*/
 .pls-message {
-  padding: 8px;
+  transition: .5s all;
+  max-height: 0;
+  padding: 0 8px;
   border-radius: 3px;
+  overflow: hidden;
+  margin: 0;
+}
+
+.pls-message.active {
+  padding: 8px;
+  max-height: 40px;
+  margin: 10px 0;
 }
 
 .pls-message.success {

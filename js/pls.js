@@ -1,7 +1,7 @@
 /*!
  * Pls - A js library for handling ajax overlays and response messages
  *
- * Version:  0.3.5.3
+ * Version:  0.3.6
  * Released:
  * Home:   https://github.com/hankthewhale/pls
  * Author:   Dave Beshero (http://daveb.me)
@@ -110,13 +110,12 @@ window.pls = (function () {
       if (obj.delay) {
         self.querySelector('.' + s.n_wait + ' ' + 'p').innerHTML = state === s.n_error ? obj.error : obj.success;
 
-
         var spinner  = self.querySelector('.spinner');
         var spin_cls = ' ' + state;
         spinner.className = spinner.className + spin_cls;
 
         delay(obj.delay, function() {
-          spinner.className = spinner.className.replace(spin_cls,'');
+          removeClass(spinner, state);
           _complete(wait_elm)
         });
       } else {
@@ -125,7 +124,7 @@ window.pls = (function () {
     }
 
     function _complete(e) {
-      e.className = e.className.replace(/\b active\b/,'');
+      removeClass(e, 'active');
     }
   }
 
@@ -140,8 +139,14 @@ window.pls = (function () {
         node.appendChild(textnode);
         element.appendChild(node);
 
+        delay(50, function() {
+          node.className = node.className + ' active'
+        });
+
         if (opts.delay) {
+          removeClass(node)
           delay(opts.delay, function() {
+            // TODO: fix issue if clearMessages() is fired before this delay finishes
             element.removeChild(node)
           });
         }
@@ -167,6 +172,7 @@ window.pls = (function () {
       if (children.length) {
         // reverse loop so we don't have to worry about removing the items from children
         for (var i = children.length; i--;) {
+          removeClass(children[i], 'active');
           element.removeChild(children[i]);
         }
       }
@@ -187,6 +193,10 @@ window.pls = (function () {
     setTimeout(function() {
       callback();
     }, time);
+  }
+
+  function removeClass(e, cls) {
+    e.className = e.className.replace(' ' + cls,'');
   }
 
   return pls;

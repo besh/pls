@@ -131,6 +131,25 @@ pre span:before {
   color: cornsilk;
 }
 
+section.try-messages span {
+  display: block;
+  background: #97442D;
+  color: white;
+  padding: 10px 5px;
+  margin: 5px;
+  font-size: 1.2rem;
+  text-align: center;
+}
+
+.flex {
+  display: flex;
+  justify-content: space-between;
+}
+
+.message-container {
+  transition: all .5s;
+}
+
 
 /* Desktops and laptops ----------- */
 @media only screen and (min-width : 1224px) {

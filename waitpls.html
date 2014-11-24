@@ -105,6 +105,30 @@
           <span>pls(selector).clearMessages('error');</span>
         </pre>
       </section>
+
+      <section class="try-messages">
+        <h3>Try it out!</h3>
+
+        <div class="flex">
+          <span class="create-success">Create success</span>
+          <span class="create-success-delay">Create success with delay</span>
+        </div>
+
+        <div class="flex">
+          <span class="create-error">Create error</span>
+          <span class="create-error-delay">Create error with delay</span>
+        </div>
+
+        <div class="message-container">
+
+        </div>
+
+        <div class="flex">
+          <span class="clear-all">Clear all</span>
+          <span class="clear-success">Clear success</span>
+          <span class="clear-error">Clear error</span>
+        </div>
+      </section>
     </div>
 
     <!-- START pls overlay template-->
@@ -165,6 +189,51 @@
         status: "success",
         fortune: "Are you a mock turtle?"
       }
+    });
+
+    var pls_m = pls('.message-container');
+
+    // demo errors
+    $('.clear-all').on('click', function() {
+      pls_m.clearMessages();
+    });
+
+    $('.clear-success').on('click', function() {
+      pls_m.clearMessages('success');
+    });
+
+    $('.clear-error').on('click', function() {
+      pls_m.clearMessages('error');
+    });
+
+    $('.create-success').on('click', function() {
+      pls_m.message({
+        text: 'There is so much success here',
+        type: 'success'
+      });
+    });
+
+    $('.create-success-delay').on('click', function() {
+      pls_m.message({
+        text: 'There is so much success here',
+        type: 'success',
+        delay: 4000
+      });
+    });
+
+    $('.create-error').on('click', function() {
+      pls_m.message({
+        text: 'There is so much bad going on in here',
+        type: 'error'
+      });
+    });
+
+    $('.create-error-delay').on('click', function() {
+      pls_m.message({
+        text: 'There is so much bad going on in here',
+        type: 'error',
+        delay: 4000
+      });
     });
   </script>
 </html>
