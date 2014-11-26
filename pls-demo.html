@@ -129,6 +129,10 @@
           <span class="clear-error">Clear error</span>
         </div>
       </section>
+
+      <section>
+        <a href="http://github.com/hankthewhale/pls" target="_blank" class="github">Download on Github</a>
+      </section>
     </div>
 
     <!-- START pls overlay template-->
@@ -157,6 +161,8 @@
     });
 
 
+    var text = 'This is some dumb message';
+
     $('.add-to-cart').on('click', function(e) {
       e.preventDefault();
       var parent = $(this).parent('.item');
@@ -175,7 +181,7 @@
         })
         .done(function(data) {
           if (data.status === 'success') {
-            pls_elm.send('success');
+            pls_elm.send('success', text);
           } else {
             pls_elm.send('error');
           }
