@@ -146,8 +146,29 @@ section.try-messages span {
   justify-content: space-between;
 }
 
-.message-container {
-  transition: all .5s;
+.github {
+  display: block;
+  font-size: 2rem;
+  text-align: center;
+  padding: 10px;
+  color: #fff;
+  text-decoration: none;
+  text-shadow: 0 -1px 0 rgba(0,0,0,.5);
+  background-color: #3072b3;
+  background-repeat: repeat-x;
+  background-image: -moz-linear-gradient(top, #599bdc 0%, #3072b3 100%);
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#599bdc), color-stop(100%,#3072b3));
+  background-image: -webkit-linear-gradient(top, #599bdc 0%,#3072b3 100%);
+  background-image: -ms-linear-gradient(top, #599bdc 0%,#3072b3 100%);
+  background-image: -o-linear-gradient(top, #599bdc 0%,#3072b3 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#599bdc', endColorstr='#3072b3',GradientType=0 );
+  background-image: linear-gradient(top, #599bdc 0%,#3072b3 100%);
+  border: 1px solid #2967a4;
+  border-radius: 6px;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.1), 0 1px 2px rgba(0,0,0,.2);
+  -webkit-transition: none;
+  -moz-transition: none;
+  transition: none;
 }
 
 
