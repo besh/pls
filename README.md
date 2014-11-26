@@ -33,6 +33,25 @@ pls('#bodyContainer').wait({
 });
 ```
 
+#### wait() options
+```js
+text: 'your initial message' // (e.g please wait, loading, etc.),
+main: true // (Tells the overlay if it's going to be fixed position vs absolutely positioned to a relative parent), 
+success: 'Your success message',
+error: 'Your error message',
+delay: time in milliseconds // (how long after the success/error message appears will the overlay stay visible)
+```
+For trigger your success/error messages when the ajax call completes, use the ```send()``` method.
+```js
+pls('#bodyContainer').send('success'); // use error to trigger the error
+```
+
+Additionally, you can override the success/error messages set in the ```wait()``` method. This is useful for displaying data that might be returning from the ajax call.
+```js
+pls('#bodyContainer').send('success', data); // data will override the success/error message.
+```
+
+
 ### Pls success/error messages
   
 Pls also comes with a general messaging system to append messages at time using ```.message()```.
