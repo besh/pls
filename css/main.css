@@ -52,6 +52,7 @@ p {
 
 ul {
   margin: 10px;
+  list-style: none;
 }
 
 ul li {

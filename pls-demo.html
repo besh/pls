@@ -33,6 +33,7 @@
       </section>
 
       <section>
+        <h2>send()</h2>
         <p><strong>Pls</strong> can easily handle multiple request and offers support to send success and error messages</p>
         <pre>
           <span>$('.add-to-cart').on('click', function(e) {</span>
@@ -62,13 +63,13 @@
       <ul>
         <li class="item">
           <div class="image">
-            <img src="http://placekitten.com/g/200/200" alt="cat 1">
+            <img src="https://placekitten.com/g/150/150" alt="cat 1">
           </div>
           <a href="#" class="btn add-to-cart">Add to cart</a>
         </li>
         <li class="item">
           <div class="image">
-            <img src="http://placekitten.com/g/300/300" alt="cat 2">
+            <img src="https://placekitten.com/g/250/250" alt="cat 2">
           </div>
           <a href="#" class="btn add-to-cart">Add to cart</a>
         </li>
@@ -79,6 +80,22 @@
           <a href="#" class="btn add-to-cart">Add to cart</a>
         </li>
       </ul>
+
+      <section>
+        <p>Sometimes you may be receiving success/error messages in the response data. In that case, you can pass in the data like so</p>
+        <pre>
+          <span> $.ajax({</span>
+          <span>    url: '/restful/fortune'</span>
+          <span>  })</span>
+          <span>  .done(function(data) {</span>
+          <span class="highlight">    pls_elm.send('success', data);</span>
+          <span>  });</span>
+          <span>});</span>
+
+        </pre>
+        <p class="pls-message error">Everything is bad!</p>
+      </section>
+
 
       <section>
       <h2>message()</h2>
@@ -95,7 +112,7 @@
 
       <section>
         <h2>clearMessages()</h2>
-        <p>If no delay is passed in, you can remove all messages with <code>pls(selector).clearMessages()</code></p>
+        <p>You can remove all messages with <code>pls(selector).clearMessages()</code></p>
         <pre>
           <span>pls(selector).clearMessages();</span>
         </pre>
@@ -161,7 +178,7 @@
     });
 
 
-    var text = 'This is some dumb message';
+    // var text = 'This is some dumb message';
 
     $('.add-to-cart').on('click', function(e) {
       e.preventDefault();
@@ -181,7 +198,7 @@
         })
         .done(function(data) {
           if (data.status === 'success') {
-            pls_elm.send('success', text);
+            pls_elm.send('success');
           } else {
             pls_elm.send('error');
           }
